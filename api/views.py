@@ -93,4 +93,4 @@ class SeoulOpenDataVeiw(APIView):
             return Response(serializer.errors, status=400)
         
         except KeyError:
-            return Response({'detail': 'key error'}, status=400)   
+            return Response({'detail': f'서울시 {gubn}구의 공공데이터 조회를 실패했습니다.'}, status=400)   
