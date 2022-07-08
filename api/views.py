@@ -39,7 +39,10 @@ class SeoulOpenDataVeiw(APIView):
             if err:
                 return Response({'detail': err}, status=400)
             
-            gu_name            = sewer_pipe_data[0]['GUBN_NAM']
+            gu_name = sewer_pipe_data[0].get('GUBN_NAM', None)
+            if not gu_name:
+                return Response({'detail': f'서울시 {gu_name}구의 공공데이터가 존재하지 않습니다.'}, status=400)
+            
             rainfall_data, err = RainfallOpenAPI.get_rainfall_data(gu_name)
             if err:
                 return Response({'detail': err}, status=400)
@@ -90,6 +93,7 @@ class SeoulOpenDataVeiw(APIView):
             serializer = SeoulOpenDataSerializer(data=data)
             if serializer.is_valid():
                 return Response(serializer.data, status=200)
+            
             return Response(serializer.errors, status=400)
         
         except KeyError:
