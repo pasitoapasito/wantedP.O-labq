@@ -15,7 +15,17 @@ from pathlib import Path
 
 from dotenv  import load_dotenv, find_dotenv
 
+from django.core.exceptions import ImproperlyConfigured
+
 load_dotenv(find_dotenv())
+
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = f'Set the {var_name} environment variable'
+        raise ImproperlyConfigured(error_msg)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,16 +37,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = get_env_variable('DEBUG')
 
-SECRET_KEY = os.environ['SECRET_KEY']
-OPEN_API_KEY = os.environ['OPEN_API_KEY']
+SECRET_KEY = get_env_variable('SECRET_KEY')
+OPEN_API_KEY = get_env_variable('OPEN_API_KEY')
 
-ALLOWED_HOSTS = (os.environ['ALLOWED_HOSTS'], )
+ALLOWED_HOSTS = (get_env_variable('ALLOWED_HOSTS'), )
 
 APPEND_SLASH = False
 
 # Application definition
+PROJECT_APPS = [
+    'core',
+    'api'
+]
+
+THIRD_PARTY_APPS = [
+    'drf_yasg',
+    'rest_framework',
+]
 
 INSTALLED_APPS = [
     # 'django.contrib.admin',
@@ -44,12 +63,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'drf_yasg',
-    'core',
-    'api'
-]
+    'django.contrib.staticfiles',  
+] + THIRD_PARTY_APPS + PROJECT_APPS
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
