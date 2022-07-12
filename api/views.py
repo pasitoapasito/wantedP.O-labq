@@ -15,17 +15,19 @@ from drf_yasg.utils    import swagger_auto_schema
 
 
 class SeoulOpenDataVeiw(APIView):
+    """
+    Assignee: 김동규
+    
+    query param: gubn
+    return: json
+    detail: 구(지역) 이름을 입력받으면 서울시 하수관, 강우량 데이터를 수집/가공하여 결합된 데이터를 반환합니다.
+    """
+    
     permission_classes = [AllowAny]
     
     query_param = openapi.Parameter('gubn', openapi.IN_QUERY, required=True, pattern='?gubn=', type=openapi.TYPE_STRING)
     @swagger_auto_schema(responses={200: SeoulOpenDataSerializer}, manual_parameters=[query_param])
     def get(self, request):
-        """
-        writer: 김동규
-        query param: gubn
-        return: json
-        detail: 구(지역) 이름을 입력받으면 서울시 하수관, 강우량 데이터를 수집/가공하여 결합된 데이터를 반환합니다.
-        """
         try:
             gubn = request.GET.get('gubn', None)
             if not gubn:
