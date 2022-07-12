@@ -6,7 +6,8 @@ from core.api_settings import URL, KEY, TYPE
 
 class SewerPipeOpenAPI:
     """
-    writer: 김동규
+    Assignee: 김동규
+    
     param: CODE(구분코드)
     return: json
     detail: 구분(지역)코드를 입력받으면 서울시 하수관로의 수위 데이터를 반환합니다.

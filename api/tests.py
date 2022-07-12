@@ -8,6 +8,8 @@ from rest_framework.test import APITestCase
 
 class SeoulOpenDataTest(APITestCase):
     """
+    Assignee: 김동규
+    
     Test Case Description
     
     1. 케이스 설정 방법
