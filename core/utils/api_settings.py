@@ -8,6 +8,14 @@ TYPE = 'json'
 
 
 class GubnCode:
+    """
+    Assignee: 김동규
+    
+    param: gubn[구(지역)이름]
+    return: 구분코드(code)
+    detail: 구(지역) 이름을 입력받으면 구분코드(code)를 반환합니다. 
+    """
+    
     def get_gubn_code_n_check_err(gubn: str) -> Tuple[Any, str]:
         gubn_set = {
             '종로': '01',
