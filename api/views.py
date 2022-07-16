@@ -5,13 +5,13 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views       import APIView
 from rest_framework.response    import Response
 
-from core.api_settings import GubnCode
-from core.sewer_pipe   import SewerPipeOpenAPI
-from core.rainfall     import RainfallOpenAPI
-from api.serializers   import SeoulOpenDataSerializer
+from core.utils.api_settings    import GubnCode
+from core.utils.sewer_pipe      import SewerPipeOpenAPI
+from core.utils.rainfall        import RainfallOpenAPI
+from api.serializers            import SeoulOpenDataSerializer
 
-from drf_yasg          import openapi
-from drf_yasg.utils    import swagger_auto_schema
+from drf_yasg       import openapi
+from drf_yasg.utils import swagger_auto_schema
 
 
 class SeoulOpenDataVeiw(APIView):
@@ -33,18 +33,30 @@ class SeoulOpenDataVeiw(APIView):
             if not gubn:
                 return Response({'detail': '구이름을 입력하세요.'}, status=400)
             
+            """
+            구(지역)의 이름을 확인하고 매칭되는 구분코드를 가져옵니다.
+            """
             code, err = GubnCode.get_gubn_code_n_check_err(gubn)
             if err:
                 return Response({'detail': err}, status=400)
             
+            """
+            서울시 해당 구(지역)의 하수관로 수위 데이터를 가져옵니다.
+            """
             sewer_pipe_data, err = SewerPipeOpenAPI.get_sewer_pipe_data(code)
             if err:
                 return Response({'detail': err}, status=400)
             
+            """
+            하수관로 수위 데이터에서 구(지역)의 이름을 가져옵니다.
+            """
             gu_name = sewer_pipe_data[0].get('GUBN_NAM', None)
             if not gu_name:
                 return Response({'detail': f'서울시 {gu_name}구의 공공데이터가 존재하지 않습니다.'}, status=400)
             
+            """
+            서울시 해당 구(지역)의 강우량 데이터를 가져옵니다.
+            """
             rainfall_data, err = RainfallOpenAPI.get_rainfall_data(gu_name)
             if err:
                 return Response({'detail': err}, status=400)
@@ -65,7 +77,6 @@ class SeoulOpenDataVeiw(APIView):
                 sorted(rainfall_data, key=lambda x: x['RAINGAUGE_CODE']),
                 lambda x: x['RAINGAUGE_NAME']
             )
-            
             rainfall_by_raingauge_dict = {
                 i: round(sum(map(
                             lambda x: float(x['RAINFALL10'])
@@ -77,12 +88,14 @@ class SeoulOpenDataVeiw(APIView):
                     2)
                 for i, j in rainfall_groupby_raingauge
             }
-
             rainfall_by_raingauge = []
 
             for i, j in rainfall_by_raingauge_dict.items():
                 rainfall_by_raingauge.append({'raingauge_name': i, 'sum_rain_fall': j})
             
+            """
+            서울시 Open API의 데이터를 수집/가공하여 만든 새로운 공공데이터입니다.
+            """
             data = {
                 'gu_name'         : gu_name,
                 'avg_water_level' : latest_one_hour_sewer_level,

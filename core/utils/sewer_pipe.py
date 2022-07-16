@@ -1,7 +1,7 @@
 import json, requests, datetime
 
-from typing            import Tuple, Any
-from core.api_settings import URL, KEY, TYPE
+from typing                  import Tuple, Any
+from core.utils.api_settings import URL, KEY, TYPE
 
 
 class SewerPipeOpenAPI:

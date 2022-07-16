@@ -54,7 +54,7 @@ class SeoulOpenDataTest(APITestCase):
     maxDiff = None
     
     """
-    success test case
+    성공 케이스 테스트코드
     """
     
     def test_success_seoul_data_gubn_code_01(self):
@@ -433,7 +433,7 @@ class SeoulOpenDataTest(APITestCase):
         self.assertIn('sum_rain_fall', response.json()['raingauge_info'][0])
     
     """
-    fail test case
+    실패 케이스 테스트코드
     """
     
     def test_fail_seoul_data_due_to_no_gubn_param(self):
