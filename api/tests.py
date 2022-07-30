@@ -461,7 +461,7 @@ class SeoulOpenDataTest(APITestCase):
             }
         )
     
-    @patch('core.sewer_pipe.requests')
+    @patch('core.utils.sewer_pipe.requests')
     def test_fail_seoul_data_due_to_sewer_pipe_open_api_error(self, mocked_requests):
         
         class MockedResponse:
@@ -489,7 +489,7 @@ class SeoulOpenDataTest(APITestCase):
             }    
         )
         
-    @patch('core.rainfall.requests')
+    @patch('core.utils.rainfall.requests')
     def test_fail_seoul_data_due_to_rainfall_open_api_error(self, mocked_requests):
         
         class MockedResponse:
