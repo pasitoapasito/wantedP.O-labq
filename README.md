@@ -221,14 +221,17 @@
   
 - #### ✨ Swagger UI
   #### ```✔️ Open API 형식의 서울시 공공데이터 반환``` 
-  
+  <img width="1000px" alt="스크린샷 2022-07-30 13 47 10" src="https://user-images.githubusercontent.com/89829943/181872841-4f75d0ce-a512-43c3-b91b-92f4e0d55106.png">
+  <img width="1000px" alt="스크린샷 2022-07-30 13 47 33" src="https://user-images.githubusercontent.com/89829943/181872846-db40426c-7b95-4793-b406-c335c37b20bf.png">
+
 
 <br> 
 
 > **Deploy**
 - #### 🏖 프로젝트 배포
   #### Docker, Nginx, Gunicorn을 사용하여 AWS EC2 서버에 배포했으며, 비용 등의 이유로 현재는 배포를 중단했습니다.
-  <img width="1000px" alt="스크린샷 2022-07-27 08 47 14" src="https://user-images.githubusercontent.com/89829943/181131164-f9bd2137-1f08-4263-9a31-035cd0435af8.png">
+  <img width="1000px" alt="스크린샷 2022-07-30 13 51 54" src="https://user-images.githubusercontent.com/89829943/181874772-9fe95718-089f-4dc9-9e46-f58acac32d98.png">
+
 
 
 <br> 
@@ -242,11 +245,50 @@
   |1|Open API 형식의 서울시 공공데이터 반환|GET|25 case|4 cases|
   <img width="1000px" alt="스크린샷 2022-07-30 12 21 29" src="https://user-images.githubusercontent.com/89829943/181872390-d955cbd0-a607-4595-9cd2-942da5bfe264.png">
 
-  
   #### 테스트 커버리지: 98%
   <img width="1000px" alt="스크린샷 2022-07-30 12 22 53" src="https://user-images.githubusercontent.com/89829943/181872405-67f19b93-68d7-4f3f-a43e-91b5cc14e799.png">
 
-  
+- #### ⛱ 테스트 모킹(mocking)
+  #### patch 데코레이터를 사용하여 외부서비스(Open API)에 의존하지 않고 독립적으로 실행가능한 단위 테스트코드를 작성했습니다.
+    ```
+    > ex1) 서울시 하수관로 수위 Open API 반환 데이터 mocking
+    
+    @patch('core.utils.sewer_pipe.requests')
+      def test_fail_seoul_data_due_to_sewer_pipe_open_api_error(self, mocked_requests):
+
+          class MockedResponse:
+              data = {
+                  'DrainpipeMonitoringInfo':
+                      {'RESULT': 
+                          {'CODE': 'ERROR-500',\
+                              'MESSAGE': '서버 오류입니다. 지속적으로 발생시 열린 데이터 광장으로 문의(Q&A) 바랍니다.'
+                      }
+                  }
+              }
+              content = json.dumps(data)
+
+          mocked_requests.get = mock.MagicMock(return_value = MockedResponse())
+    ```
+    ```
+    > ex2) 서울시 강우량 Open API 반환 데이터 mocking
+    
+    @patch('core.utils.rainfall.requests')
+      def test_fail_seoul_data_due_to_rainfall_open_api_error(self, mocked_requests):
+
+          class MockedResponse:
+              data = {
+                  'ListRainfallService':
+                      {'RESULT': 
+                          {'CODE': 'ERROR-500',\
+                              'MESSAGE': '서버 오류입니다. 지속적으로 발생시 열린 데이터 광장으로 문의(Q&A) 바랍니다.'
+                      }
+                  }
+              }
+              content = json.dumps(data)
+
+          mocked_requests.get = mock.MagicMock(return_value = MockedResponse())
+    ```
+
 <br> 
 
 > **Issue**
