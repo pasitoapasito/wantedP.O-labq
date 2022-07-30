@@ -249,7 +249,7 @@
   <img width="1000px" alt="스크린샷 2022-07-30 12 22 53" src="https://user-images.githubusercontent.com/89829943/181872405-67f19b93-68d7-4f3f-a43e-91b5cc14e799.png">
 
 - #### ⛱ 테스트 모킹(mocking)
-  #### patch 데코레이터를 사용하여 외부서비스(Open API)에 의존하지 않고 독립적으로 실행가능한 단위 테스트코드를 작성했습니다.
+  #### patch 데코레이터를 사용하여 외부서비스(Open API)에 의존하지 않고 독립적으로 실행 가능한 테스트코드를 작성했습니다.
     ```
     > ex1) 서울시 하수관로 수위 Open API 반환 데이터 mocking
     
