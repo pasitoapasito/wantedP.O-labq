@@ -216,11 +216,11 @@
 - #### 🌈 API 명세서
   |ID|Feature|Method|URL|
   |---|----------|----|----|
-  |1|Open API 형식의 서울시 공공데이터 반환|GET|api/seoul/sewerlevel-rainfall|
+  |1|공공데이터 제공|GET|api/seoul/sewerlevel-rainfall|
   
   
 - #### ✨ Swagger UI
-  #### ```✔️ Open API 형식의 서울시 공공데이터 반환``` 
+  #### ```✔️ 공공데이터 제공``` 
   <img width="1000px" alt="스크린샷 2022-07-30 13 47 10" src="https://user-images.githubusercontent.com/89829943/181872841-4f75d0ce-a512-43c3-b91b-92f4e0d55106.png">
   <img width="1000px" alt="스크린샷 2022-07-30 13 47 33" src="https://user-images.githubusercontent.com/89829943/181872846-db40426c-7b95-4793-b406-c335c37b20bf.png">
 
