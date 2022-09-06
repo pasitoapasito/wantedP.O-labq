@@ -10,7 +10,7 @@
 > **Index**
 - [Team Project](#team-project)
 - [Environments](#environments)
-- [Personal Project](#personal-project)
+- [Project](#project)
 - [Etc](#etc)
 
 <br>
@@ -51,7 +51,7 @@
 <hr>
 
 
-## Personal Project
+## Project
 
 > **Period**
 - #### ⚡️ 22.07.06 ~ 22.07.16
@@ -214,9 +214,7 @@
 
 > **API Docs**
 - #### 🌈 API 명세서
-  |ID|Feature|Method|URL|
-  |---|----------|----|----|
-  |1|공공데이터 제공|GET|api/seoul/sewerlevel-rainfall|
+  <img width="1000px" alt="스크린샷 2022-09-06 10 34 29" src="https://user-images.githubusercontent.com/89829943/188528645-3283350a-77d4-4c24-a024-7d0da392d5b7.png">
   
   
 - #### ✨ Swagger UI
@@ -239,10 +237,8 @@
 > **Test**
 - #### 🚦 테스트코드 작성
   #### 전체 테스트코드: 29 cases
-  
-  |ID|Feature|Method|Success cases|Fail cases|
-  |---|----|----|----|----|
-  |1|Open API 형식의 서울시 공공데이터 반환|GET|25 case|4 cases|
+  <img width="1000px" alt="스크린샷 2022-09-06 10 41 37" src="https://user-images.githubusercontent.com/89829943/188529260-61be58d6-5803-497f-9c74-861d2c1f42fc.png">
+
   <img width="1000px" alt="스크린샷 2022-07-30 12 21 29" src="https://user-images.githubusercontent.com/89829943/181872390-d955cbd0-a607-4595-9cd2-942da5bfe264.png">
 
   #### 테스트 커버리지: 98%
